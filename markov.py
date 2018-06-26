@@ -1,6 +1,7 @@
 """Generate Markov text from text files."""
 
 from random import choice
+import random
 
 
 def open_and_read_file(file_path):
@@ -57,8 +58,15 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    key = random.choice(list(chains.keys()))
 
+    while True:
+        if key in chains:
+            new = random.choice(chains[key])
+            words.extend([key[0], key[1], new])
+            key = (key[1], new)
+        else:
+            break
     return " ".join(words)
 
 
@@ -70,7 +78,7 @@ input_text = open_and_read_file(input_path)
 # Get a Markov chain
 chains = make_chains(input_text)
 
-# # Produce random text
-# random_text = make_text(chains)
+# Produce random text
+random_text = make_text(chains)
 
-# print(random_text)
+print(random_text)
