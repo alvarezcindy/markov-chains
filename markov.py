@@ -40,8 +40,15 @@ def make_chains(text_string):
 
     chains = {}
 
-    # your code goes here
+    words = text_string.split()
 
+    for i in range(len(words)-2):
+        pair = (words[i], words[i + 1])
+        if pair in chains:
+            pair_value = chains[pair]
+            pair_value.append(words[i + 2])
+        else:
+            chains[pair] = [words[i+2]]
     return chains
 
 
@@ -61,11 +68,9 @@ input_path = "green-eggs.txt"
 input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
-# chains = make_chains(input_text)
+chains = make_chains(input_text)
 
 # # Produce random text
 # random_text = make_text(chains)
 
 # print(random_text)
-
-print(input_text)
